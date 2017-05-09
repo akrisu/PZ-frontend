@@ -1,7 +1,9 @@
+import { DateModel } from 'ng2-datepicker';
+
 export class DriverForm {
     public firstName: string;
-    public secondName: string;
+    public lastName: string;
     public workerId: number;
     public phone: string;
-    public workStartDate: string;
+    public workStartDate: Date;
 }

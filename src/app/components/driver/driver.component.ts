@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DriverForm } from '../../forms/DriverForm';
+import { DatePickerOptions, DateModel } from 'ng2-datepicker';
+
+import { DriverRepository } from '../../repositories/DriverRepository';
 
 @Component({
   selector: 'app-driver',
@@ -8,15 +11,22 @@ import { DriverForm } from '../../forms/DriverForm';
 })
 export class DriverComponent implements OnInit {
   public driverForm: DriverForm;
+  public dateOptions: DatePickerOptions;
+  public date: DateModel;
 
-  constructor() {
+  constructor(
+    private driverRepository: DriverRepository
+  ) {
     this.driverForm = new DriverForm();
+    this.dateOptions = new DatePickerOptions();
   }
 
   ngOnInit() {
   }
 
   public send(): void {
+    this.driverForm.workStartDate = new Date(this.date.formatted);
     console.log(this.driverForm);
+    this.driverRepository.createDriver(this.driverForm);
   }
 }

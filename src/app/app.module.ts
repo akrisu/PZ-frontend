@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { DatePickerModule } from 'ng2-datepicker';
+import { Http, RequestOptions } from '@angular/http';
+import { AuthHttp, AuthConfig, tokenNotExpired } from 'angular2-jwt';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -17,7 +20,15 @@ import { AdminPermissionService } from './services/adminPermission/adminpermissi
 import { UserPermissionService } from './services/userPermission/userpermission.service';
 
 import { UserRepository } from './repositories/UserRepository';
+import { DriverRepository } from './repositories/DriverRepository';
 
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenName: 'id_token',
+    globalHeaders: [{'Content-Type':'application/json'}],
+    noTokenScheme: true
+  }), http, options);
+}
 
 const appRoutes: Routes = [
   {
@@ -65,13 +76,20 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    DatePickerModule
   ],
   providers: [
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    },
     UserService,
     AdminPermissionService,
     UserPermissionService,
-    UserRepository
+    UserRepository,
+    DriverRepository
   ],
   bootstrap: [AppComponent]
 })
