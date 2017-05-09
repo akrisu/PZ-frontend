@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col s6">
+    <h5 class="red-text text-lighten-2">Add new driver</h5>
+    <form>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="firstName" [(ngModel)]="driverForm.firstName" name="firstName" type="text" class="validate">
+          <label for="firstName">First name</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="lastName" [(ngModel)]="driverForm.lastName" name="lastName" type="text" class="validate">
+          <label for="lastName">Last name</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="workerId" [(ngModel)]="driverForm.workerId" name="workerId" type="text" class="validate">
+          <label for="workerId">Worker ID</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="phone" [(ngModel)]="driverForm.phone" name="phone" type="text" class="validate">
+          <label for="phone">Phone</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="workStartDate" [(ngModel)]="driverForm.workStartDate" name="workStartDate" type="date" class="datepicker">
+          <label for="workStartDate" class="active">Work start date</label>
+          {{ driverForm.firstName }}
+        </div>
+        <div class="input-field col s12">
+          <button (click)="send()" class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col s6">
+    <h5 class="red-text text-lighten-2">Driver list</h5>
+  </div>
+</div>
