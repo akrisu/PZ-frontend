@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col s6" *ngIf="avaliableDrivers">
+    <h5 class="red-text text-lighten-2 center">Add new order</h5>
+    <form [formGroup]="orderForm" novalidate (ngSubmit)="send(orderForm.value, orderForm.valid)" class="col s6 offset-s3">
+      <div class="row">
+        <div class="input-field">
+          <input id="start" formControlName="start" type="text">
+          <label for="start">Starting point</label>
+          <small [hidden]="orderForm.controls.start.valid || (orderForm.controls.start.pristine && !submitted)">
+            Starting point is required.
+          </small>
+        </div>
+        <div class="input-field">
+          <input id="end" formControlName="end" type="text">
+          <label for="end">Ending point</label>
+          <small [hidden]="orderForm.controls.end.valid || (orderForm.controls.end.pristine && !submitted)">
+            Ending point
+          </small>
+        </div>
+        <div class="input-field">
+          <input id="loadVolume" formControlName="loadVolume" type="number">
+          <label for="loadVolume">Volume</label>
+          <small [hidden]="orderForm.controls.loadVolume.valid || (orderForm.controls.loadVolume.pristine && !submitted)">
+            Volume is required.
+          </small>
+        </div>
+        <div class="input-field">
+          <input id="loadCapacity" formControlName="loadCapacity" type="number">
+          <label for="loadCapacity">Capacity</label>
+          <small [hidden]="orderForm.controls.loadCapacity.valid || (orderForm.controls.loadCapacity.pristine && !submitted)">
+            Capacity is required.
+          </small>
+        </div>
+        <div class="input-field">
+          <ng-select formControlName="driver" [options]="options"></ng-select>
+        </div>
+        <div class="input field">
+          <button class="btn waves-effect waves-light" type="submit">
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col s6">
+    <h5 class="red-text text-lighten-2 center">Order list</h5>
+    <div *ngFor="let order of orders" class="row">
+      {{ order.start }} - {{ order.end }}
+      {{ order.driver.firstName }}
+      {{ order.driver.lastName }}
+
+      <span *ngIf="order.finished">
+        <span class="btn waves-effect waves-light disabled right">
+          Completed
+        </span>
+      </span>
+      <span *ngIf="!order.finished">
+        <button (click)="finish(order.id)" class="btn waves-effect waves-light right" type="submit">
+          Finish
+          <i class="material-icons right">done</i>
+        </button>
+      </span>
+    </div>
+  </div>
+</div>

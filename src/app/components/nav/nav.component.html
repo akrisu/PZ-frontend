@@ -3,10 +3,11 @@
     <a href="#" class="brand-logo">Transport company manager</a>
     <ul id="nav-mobile" *ngIf="!isLoggedIn()" class="right hide-on-med-and-down">
       <li><a routerLink="/login">Login</a></li>
-      <li><a routerLink="/register">Register</a></li>
     </ul>
     <ul id="nav-mobile" *ngIf="isLoggedIn() && isAdmin()" class="right hide-on-med-and-down">
       <li><a routerLink="/driver">Driver</a></li>
+      <li><a routerLink="/vehicle">Vehicle</a></li>
+      <li><a routerLink="/order">Order</a></li>
       <li><a routerLink="/dashboard">Dashboard</a></li>
       <li><a (click)="logout()">Logout</a></li>
     </ul>

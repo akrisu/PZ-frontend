@@ -1,3 +1,44 @@
-<p>
-  dashboard works!
-</p>
+
+<div class="row">
+  <div class="col s6">
+    <h5 class="red-text text-lighten-2 center">Add a fuel</h5>
+    <form *ngIf="editId" [formGroup]="fuelForm" novalidate (ngSubmit)="send(fuelForm.value, fuelForm.valid)" class="col s6 offset-s3">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="fuel" formControlName="fuel" type="text">
+          <label for="fuel">Fuel</label>
+          <small [hidden]="fuelForm.controls.fuel.valid || (fuelForm.controls.fuel.pristine && !submitted)">
+            Fuel is required.
+          </small>
+        </div>
+        <div class="input-field col s12">
+          <button class="btn waves-effect waves-light" type="submit">
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+   <div class="col s6">
+    <h5 class="red-text text-lighten-2 center">Your orders</h5>
+    <div *ngFor="let order of orders" class="row">
+      {{ order.start }} - {{ order.end }}
+      {{ order.driver.firstName }}
+      {{ order.driver.lastName }}
+
+      <span *ngIf="order.finished">
+        <span (click)="edit(order.id)" class="btn waves-effect waves-light right">
+          Edit
+          <i class="material-icons right">mode_edit</i>
+        </span>
+      </span>
+      <span *ngIf="!order.finished">
+        <button class="btn waves-effect waves-light disabled right" type="submit">
+          In progress
+          <i class="material-icons right">fast_forward</i>
+        </button>
+      </span>
+    </div>
+  </div>
+</div>

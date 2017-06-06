@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Credentials } from '../../forms/LoginForm';
+import { Credentials } from '../../interfaces/Credentials.interface';
 import { UserService } from '../../services/user/user.service';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,19 +9,27 @@ import { UserService } from '../../services/user/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public loginForm: Credentials;
+  public loginForm: FormGroup;
+  public submitted: boolean;
 
   constructor(
-    private userService: UserService
-  ) {
-    this.loginForm = new Credentials();
-  }
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+  ) {}
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      username: ['', [<any>Validators.required]],
+      password: ['', [<any>Validators.required]],
+    });
   }
 
-  public login(): void {
-    this.userService.login(this.loginForm);
+  public login(model: Credentials, isValid: boolean): void {
+    this.submitted = true;
+
+    if (isValid) {
+      this.userService.login(model);
+    }
   }
 
   public isLoggedIn(): boolean {

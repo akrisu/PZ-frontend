@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 
 import { UserRepository } from './../../repositories/UserRepository';
-import { Credentials } from './../../forms/LoginForm';
+import { Credentials } from './../../interfaces/Credentials.interface';
 
 @Injectable()
 export class UserService {
@@ -41,6 +41,13 @@ export class UserService {
         const payload: any = jwtHelper.decodeToken(localStorage.getItem('id_token'));
 
         return payload.role === 'admin';
+    }
+
+    public getUserId(): string {
+        const jwtHelper = new JwtHelper();
+        const payload: any = jwtHelper.decodeToken(localStorage.getItem('id_token'));
+
+        return payload.userId;
     }
 
     public logout(): void {

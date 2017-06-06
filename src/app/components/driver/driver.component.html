@@ -1,30 +1,43 @@
 <div class="row">
   <div class="col s6">
-    <h5 class="red-text text-lighten-2">Add new driver</h5>
-    <form>
+    <h5 class="red-text text-lighten-2 center">Add new driver</h5>
+    <form [formGroup]="driverForm" novalidate (ngSubmit)="send(driverForm.value, driverForm.valid)" class="col s6 offset-s3">
       <div class="row">
         <div class="input-field col s12">
-          <input id="firstName" [(ngModel)]="driverForm.firstName" name="firstName" type="text" class="validate">
+          <input id="firstName" formControlName="firstName" type="text">
           <label for="firstName">First name</label>
+          <small [hidden]="driverForm.controls.firstName.valid || (driverForm.controls.firstName.pristine && !submitted)">
+            First name is required (min. 2 characters).
+          </small>
         </div>
         <div class="input-field col s12">
-          <input id="lastName" [(ngModel)]="driverForm.lastName" name="lastName" type="text" class="validate">
+          <input id="lastName" formControlName="lastName" type="text">
           <label for="lastName">Last name</label>
+          <small [hidden]="driverForm.controls.lastName.valid || (driverForm.controls.lastName.pristine && !submitted)">
+            Last name is required (min. 2 characters).
+          </small>
         </div>
         <div class="input-field col s12">
-          <input id="workerId" [(ngModel)]="driverForm.workerId" name="workerId" type="text" class="validate">
+          <input id="workerId" formControlName="workerId" type="text">
           <label for="workerId">Worker ID</label>
+          <small [hidden]="driverForm.controls.workerId.valid || (driverForm.controls.workerId.pristine && !submitted)">
+            Worker id is required.
+          </small>
         </div>
         <div class="input-field col s12">
-          <input id="phone" [(ngModel)]="driverForm.phone" name="phone" type="text" class="validate">
+          <input id="phone" formControlName="phone" type="text">
           <label for="phone">Phone</label>
+          <small [hidden]="driverForm.controls.phone.valid || (driverForm.controls.phone.pristine && !submitted)">
+            Phone is required (min. 2 characters).
+          </small>
         </div>
         <div class="input-field col s12">
-          <ng2-datepicker id="workStartDate" [options]="dateOptions" [(ngModel)]="date" name="workStartDate"></ng2-datepicker>
+          <ng2-datepicker id="workStartDate" [options]="dateOptions" formControlName="workStartDate" name="workStartDate"></ng2-datepicker>
           <label for="workStartDate" class="active">Work start date</label>
         </div>
         <div class="input-field col s12">
-          <button (click)="send()" class="btn waves-effect waves-light" type="submit" name="action">Submit
+          <button class="btn waves-effect waves-light" type="submit">
+            Submit
             <i class="material-icons right">send</i>
           </button>
         </div>
@@ -32,6 +45,13 @@
     </form>
   </div>
   <div class="col s6">
-    <h5 class="red-text text-lighten-2">Driver list</h5>
+    <h5 class="red-text text-lighten-2 center">Driver list</h5>
+      <div class="row" *ngFor="let driver of drivers">
+      {{ driver.firstName }}
+      {{ driver.lastName }}
+      <button *ngIf="!driver.inUse" (click)="delete(driver.id)" class="waves-effect waves-light btn right">
+        Delete <i class="material-icons">delete</i>
+      </button>
+    </div>
   </div>
 </div>

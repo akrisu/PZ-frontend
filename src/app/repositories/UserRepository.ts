@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Http, HttpModule } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
-import { Credentials } from './../forms/LoginForm';
+import { Credentials } from './../interfaces/Credentials.interface';
 
 @Injectable()
 export class UserRepository {
-    private readonly url = 'http://localhost:8080/api';
+    private readonly url = 'http://localhost:8085/api';
 
     constructor(
         private $http: Http

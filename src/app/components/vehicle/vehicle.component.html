@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col s6">
+    <h5 class="red-text text-lighten-2 center">Add new vehicle</h5>
+    <form [formGroup]="vehicleForm" novalidate (ngSubmit)="send(vehicleForm.value, vehicleForm.valid)" class="col s6 offset-s3">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="registrationNumber" formControlName="registrationNumber" type="text">
+          <label for="registrationNumber">Registration number</label>
+          <small [hidden]="vehicleForm.controls.registrationNumber.valid || (vehicleForm.controls.registrationNumber.pristine && !submitted)">
+            Registration number is required (min. 5 characters).
+          </small>
+        </div>
+        <div class="input-field col s12">
+          <input id="volume" formControlName="volume" type="text">
+          <label for="volume">Volume</label>
+          <small [hidden]="vehicleForm.controls.volume.valid || (vehicleForm.controls.volume.pristine && !submitted)">
+            Volume is required.
+          </small>
+        </div>
+        <div class="input-field col s12">
+          <input id="capacity" formControlName="capacity" type="text">
+          <label for="capacity">Capacity</label>
+          <small [hidden]="vehicleForm.controls.capacity.valid || (vehicleForm.controls.capacity.pristine && !submitted)">
+            Capacity id is required.
+          </small>
+        </div>
+        <div class="input field col s12">
+          <button class="btn waves-effect waves-light" type="submit">
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+    <div class="col s6">
+    <h5 class="red-text text-lighten-2 center">Vehicle list</h5>
+    <div class="row" *ngFor="let vehicle of vehicles">
+      <div class="col s6">
+        Reg. number: {{ vehicle.registrationNumber | uppercase }} <br>
+        Volume: {{ vehicle.volume}} <br>
+        Capacity: {{ vehicle.capacity}}
+      </div>
+      <div class="col s6">
+        <button *ngIf="!vehicle.inUse" (click)="delete(vehicle.id)" class="waves-effect waves-light btn right">
+          Delete <i class="material-icons">delete</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

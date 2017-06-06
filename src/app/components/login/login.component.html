@@ -1,16 +1,22 @@
 <div class="row">
-  <form class="col s6 offset-s3">
+  <form [formGroup]="loginForm" novalidate (ngSubmit)="login(loginForm.value, loginForm.valid)" class="col s6 offset-s3">
     <div class="row">
       <div class="input-field col s12">
-        <input id="login" [(ngModel)]="loginForm.username" name="username" type="text" class="validate">
-        <label for="login">Login</label>
+        <input id="username" formControlName="username" type="text">
+        <label for="username">Username</label>
+        <small [hidden]="loginForm.controls.username.valid || (loginForm.controls.username.pristine && !submitted)">
+          Username is required.
+        </small>
       </div>
       <div class="input-field col s12">
-        <input id="last_name" [(ngModel)]="loginForm.password" name="password" type="password" class="validate">
-        <label for="last_name">Password</label>
+        <input id="password" formControlName="password" type="password">
+        <label for="password">Password</label>
+        <small [hidden]="loginForm.controls.password.valid || (loginForm.controls.password.pristine && !submitted)">
+          Pasword is required.
+        </small>
       </div>
       <div class="input-field col s12">
-        <button (click)="login()" class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
           <i class="material-icons right">send</i>
         </button>
       </div>
